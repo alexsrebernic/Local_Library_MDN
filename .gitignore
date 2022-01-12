@@ -1,3 +1,4 @@
 node_modules
 mongoDbUrl.js
 populatedb.js
+tailwind.config.js
