@@ -2,13 +2,16 @@ var createError = require('http-errors');
 var express = require('express');
 const mongoose = require("mongoose")
 const mongoDB = require("mongoDB")
+mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+var wikiRouter = require('./wiki.js');
 var app = express();
 
 // view engine setup
@@ -23,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/wiki', wikiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
