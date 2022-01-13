@@ -3,7 +3,8 @@ var compression = require('compression')
 var helmet = require("helmet")
 var express = require('express');
 const mongoose = require("mongoose")
-const mongoDB = require("./mongoDbUrl")
+var dev_db_url = 'mongodb+srv://alexsrebernic:13312@cluster0.itpou.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+const mongoDB = process.env.MONGODB_URI || dev_db_url;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
